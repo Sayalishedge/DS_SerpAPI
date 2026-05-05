@@ -1,0 +1,58 @@
+Data Stewardship Assistant: 
+An AI-Powered Pre-MDM Enrichment Tool
+Project by: Data Dynamos (Kavish Chhatwani, Prathamesh Achawal, Asawari Unchegaonkar, Mahesh Wagdale, Sayali Shedge)
+
+1. Problem Statement
+In the commercial pharmaceutical industry, accurate and complete Healthcare Professional (HCP) data is critical for core business functions like compliance, sales targeting, and Master Data Management (MDM). However, data stewards—the first line of defense—face overwhelming challenges in preparing this data for ingestion into MDM systems. 
+
+They grapple with:
+
+Manual Research: Hours are spent on manual web searches and cross-referencing to validate demographics and find missing information.
+
+Inconsistent Data: Input data often contains missing fields, name variations, and address mismatches.
+
+Lack of Context: Crucial information like affiliations with hospitals or clinics is difficult to ascertain and structure.
+
+This upstream data quality problem creates significant downstream consequences, including delayed MDM consolidation, compliance risks from identity mismatches, and ineffective commercial planning.
+
+2. Our Solution
+We have developed an intelligent Data Stewardship Assistant built in Streamlit and powered by Snowflake Cortex. This application acts as a critical pre-MDM data preparation layer, transforming the manual enrichment process into a streamlined, AI-driven workflow.
+
+The assistant empowers data stewards to efficiently find, compare, approve, and update HCP records within a single, intuitive interface, ensuring that only high-quality, verified data enters the master data system.
+
+3. Key Features & Workflow
+Our solution follows a simple yet powerful Search → Select → Compare → Update workflow.
+
+Smart HCP Lookup: Users can search for an HCP using either free-form natural language (e.g., "Records for Dr. Sung in Texas") or by selecting from a list of pre-defined, common prompts. Snowflake Cortex Analyst interprets the user's intent and automatically generates the appropriate SQL query.
+
+Interactive Selection: The application displays the search results in a clean, interactive table. Each row includes a "Select" button, allowing the steward to choose a specific record for in-depth analysis.
+
+AI-Powered Comparison Report: After selecting a record, the user navigates to a dedicated comparison page, where the selected record is searched on the web using Perplexity AI api call and provides the web version of the selected record.
+This page presents a side-by-side view of the Current data from the database versus a Proposed new version of the record, enriched with AI-generated data.
+
+AI-Powered Affiliation Report: The code then further searches for any affiliaitons present for the selected record and displays the affiliaitons along with the database and affilations found from the web using Perplexity AI.
+
+Affiliation Ranking: Using Open AI, the listed affiliations are ranked by comparing the demographics of selected record and AI generated affiliaitons.
+
+Human-in-the-Loop Approval: The steward remains in full control. Each proposed change has an "Approve" checkbox, allowing for granular approval of only the fields the steward validates.
+
+Direct Database Updates: With a click of the "Update Record" button, the application uses Snowpark to write only the approved changes back to the Snowflake database, ensuring a secure and auditable update process.
+
+
+4. Technology Stack
+Frontend: Streamlit
+
+Backend & Data Platform: Snowflake
+
+AI / ML Services:
+
+Snowflake Cortex Analyst (Semantic Search)
+Gemini AI
+Open AI
+
+Core Libraries: Snowpark for Python, Pandas.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+For IPL, we can use Claude as it is provided by our Company itself and we can tailor the whole POC to only work with affiliations genereated for the searched hcp/hco.
+
