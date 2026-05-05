@@ -2,10 +2,15 @@ import json
 import streamlit as st
 import serpapi  # Use direct client import
 from openai import OpenAI
+import tomllib
+import os
 
 # --- CONFIGURATION & CLIENT SETUP ---
-SERPAPI_KEY = st.secrets.SERPAPI_KEY
-OPENAI_KEY = st.secrets.OPENAI_KEY
+with open("secrets.toml", "rb") as f:
+    secrets = tomllib.load(f)
+    # Accessing the data
+    OPENAI_KEY = secrets["openai"]["api_key"]
+    SERPAPI_KEY = secrets["serpapi"]["api_key"]
 
 client = OpenAI(api_key=OPENAI_KEY)
 
